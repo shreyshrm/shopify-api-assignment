@@ -81,6 +81,16 @@ Now you can use `rails db:migrate` to create our tables.
 
 Using the [ShopifyAPI](https://github.com/Shopify/shopify_api) which is installed automatically with the shopify_app gem, and the documentation found at [Shopify REST API](https://shopify.dev/docs/admin-api/rest/reference) we want to:
 
+- Register our demo shop using the PrivateShop model with using the private app credentials [found here](https://grocerbox-demo.myshopify.com/admin/apps/private/261167513768)
+
+```ruby
+PrivateShop.create!(
+  shopify_domain: 'grocerbox-demo.myshopify.com',
+  api_key: '[PRIVATE APP API KEY]',
+  password: '[PRIVATE APP PASSWORD]'
+)
+```
+
 - Install a webhook for `orders/create` that loads the order with `ShopifyAPI::Orders.find(params[:id])` and saves it to the database in the delivery model with:
 
 ```ruby
