@@ -1,6 +1,6 @@
 # Shopify API Assignment
 
-The goal of this assignment is to setup a Rails app, connect it to a Shopify store and setup a webhook that creates a fake delivery when a Shopify order is made.
+The goal of this assignment is to setup a Rails app, connect it to a Shopify store and upload some products to it.
 
 The following instructions will show you how to setup your rails app, install necessary gems and create PrivateShop and Delivery models to interact with our Shopify store.
 
@@ -55,25 +55,6 @@ class PrivateShop
 end
 ```
 
-Create Delivery Model with `rails generate model Delivery`.
-
-```ruby
-create_table :deliveries do |t|
-  t.string :shopify_domain, index: true
-  t.bigint :shopify_order_id, index: true
-  t.jsonb :order
-  t.timestamps
-end
-```
-
-And class:
-
-```ruby
-class Delivery
-  belongs_to :shop, class_name: 'PrivateShop', foreign_key: :shopify_domain, primary_key: :shopify_domain
-end
-```
-
 Now you can use `rails db:migrate` to create our tables.
 
 
@@ -91,14 +72,25 @@ PrivateShop.create!(
 )
 ```
 
-- Install a webhook for `orders/create` that loads the order with `ShopifyAPI::Orders.find(params[:id])` and saves it to the database in the delivery model with:
+- From your console, using the `PrivateShop.with_shopify_session` and `ShopifyAPI::Products.create(...)` methods, populate the shop with the following products:
 
-```ruby
-Delivery.create!(
-  shopify_domain: '[SHOPIFY_DOMAIN]',
-  shopify_order_id: '[ID]',
-  order: order # The shopify order that you fetched from the ShopifyAPI
-)
+```
+[
+  {
+    title: "Onions",
+    body_html: "<p>A beautiful onion.</p>",
+    product_type: "Grocery",
+    tags: ["Produce"],
+    variants: [{taxable: false, option1: "lb", price: "$0.75"}]
+  },
+  {
+    title: "Avocados",
+    body_html: "<p>Perfect for guacamole or salad.</p>",
+    product_type: "Grocery",
+    tags: ["Produce"],
+    variants: [{taxable: false, option1: "unit", price: "$1.99"}]
+  }
+]
 ```
 
 ## Submission
