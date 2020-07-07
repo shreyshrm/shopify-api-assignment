@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Onions",
+        "body_html": "<p>A beautiful onion.</p>",
+        "product_type": "Grocery",
+        "tags": ["Produce"],
+        "variants": [{"taxable": false, "option1": "lb", "price": "$0.75"}]
+    },
+    {
+        "title": "Avocados",
+        "body_html": "<p>Perfect for guacamole or salad.</p>",
+        "product_type": "Grocery",
+        "tags": ["Produce"],
+        "variants": [{"taxable": false, "option1": "unit", "price": "$1.99"}]
+    }
+]
