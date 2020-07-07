@@ -9,8 +9,6 @@
 
 private_shop = PrivateShop.create!(
   shopify_domain: 'grocerbox-demo.myshopify.com',
-  api_key: '4679a6b19a9b7896cf03cf5501c661ef',
-  password: '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'
+  api_key: ENV['api-key'],
+  password: ENV['password']
 )
-
-private_shop.with_shopify_session
